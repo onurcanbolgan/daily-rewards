@@ -26,13 +26,13 @@ Günlük Ödüller API, kullanıcı kaydı, giriş ve günlük ödül toplama i�
 1. Depoyu klonlayın:
 
     ```sh
-    git clone https://github.com/kullaniciadi/gunluk-oduller-api.git
+    git clone https://github.com/kullaniciadi/daily-rewards.git
     ```
 
 2. Proje dizinine gidin:
 
     ```sh
-    cd gunluk-oduller-api
+    cd daily-rewards
     ```
 
 3. Bağımlılıkları yükleyin:
