@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  if !user
+    .container2
+      .slider
+      .btn
+        button.login giriş
+        button.signup kayıt ol
+
+      .form-section
+        .login-box
+          form(action="/users/login" method="post")
+            input(type="email" name="email" class="email ele" placeholder="email adresi" required)
+            input(type="password" name="password" class="password ele" placeholder="parola" required)
+            button(type="submit" class="clkbtn") giriş yap.
+
+        .signup-box
+          form(action="/users/register" method="post")
+            input(type="text" name="name" class="name ele" placeholder="ad" required)
+            input(type="email" name="email" class="email ele" placeholder="email adresi" required)
+            input(type="password" name="password" class="password ele" placeholder="parola" required)
+            button(type="submit" class="clkbtn") kayıt ol
+  script(src="/javascripts/index.js")

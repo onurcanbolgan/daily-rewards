@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    .container
+        .grid.grid-7
+            each reward in rewards
+                .box
+                    if reward.state == 2
+                        img(src="/images/reward_collected.png" alt="reward")
+                        .text-center Day #{reward.day}
+                        .text-center(style="color: #4CAF50;") Collected
+                        .text-center #{reward.coin} coins
+                    else if reward.state == 1 && reward.isCollectible
+                        img(src="/images/reward_active.png" alt="reward")
+                        .text-center Day #{reward.day}
+                        .text-center(style="color: #FFD700;") Active
+                        .text-center #{reward.coin} coins
+                        form(action="/rewards/collect" method="post" id="collect-form")
+                            input(type="hidden" name="dayIndex" value=reward.day)
+                            button.button(type="submit") Collect
+                    else if reward.state == 1 && !reward.isCollectible
+                        img(src="/images/reward_locked.png" alt="reward")
+                        .text-center Day #{reward.day}
+                        .text-center(style="color: #888;") Locked (#{reward.hoursUntilCollectible} hours left)
+                        .text-center #{reward.coin} coins
+                    else
+                        img(src="/images/reward_locked.png" alt="reward")
+                        .text-center Day #{reward.day}
+                        .text-center(style="color: #888;") Locked
+                        .text-center #{reward.coin} coins
+
+    script.
+        if (document.getElementById('collect-form')) {
+            document.getElementById('collect-form').addEventListener('submit', async function (event) {
+                event.preventDefault();
+                const form = event.target;
+                const formData = new FormData(form);
+                const dayIndex = formData.get('dayIndex');
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({dayIndex: dayIndex})
+                });
+                const result = await response.json();
+                if (result.status === 'success') {
+                    alert(result.message);
+                    window.location.href = '/rewards';
+                } else {
+                    alert(result.message);
+                }
+            });
+        }

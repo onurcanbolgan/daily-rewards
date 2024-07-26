@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title Daily Rewards
+    link(rel="stylesheet", href="/stylesheets/style.css")
+  body
+    header
+      nav
+        if user
+          form(action="/users/logout" method="post" style="display:inline;")
+            div(class="btn")
+              button.logout(type="submit") çıkış yap
+    block content
